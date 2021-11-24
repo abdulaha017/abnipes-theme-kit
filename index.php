@@ -11,7 +11,7 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://example.com/my-plugin/
- * Text Domain:       theme-basics-plugin
+ * Text Domain:       abnipes-theme-kit
  * Domain Path:       /languages
  */
 
@@ -53,7 +53,7 @@ add_action('admin_init', 'business_media_settings_init');
  
 // section content cb
 function business_media_section_callback() {
-    echo '<p>Business Media Section Introduction.</p>';
+    echo "<p>". __( 'Business Media Section Introduction.', 'abnipes-theme-kit' ) ."</p>";
 }
  
 // field content cb
@@ -94,7 +94,7 @@ function abnipes_customize_register( $abnipes_customize ) {
 	$abnipes_customize->add_section( 'dev-section', 
 		array(
 			'title' => __( 'Developer Info' ),
-			'description' => __( 'Write About Site Developer' ),
+			'description' => __( 'Write About Site Developer', 'abnipes-theme-kit' ),
 			'capability' => 'edit_theme_options',
 		) 
 	);
@@ -110,7 +110,7 @@ function abnipes_customize_register( $abnipes_customize ) {
  
 	$abnipes_customize->add_control( 'dev-name-control', 
 		array(
-            'label'      => __( 'Developer Name', 'mytheme' ), 
+            'label'      => __( 'Developer Name', 'abnipes-theme-kit' ), 
             'type'    	 => 'text', 
             'section'    	 => 'dev-section', 
             'settings'    	 => 'dev-name-setting', 
@@ -132,7 +132,7 @@ function abnipes_customize_register( $abnipes_customize ) {
  
 	$abnipes_customize->add_control( 'dev-link-control', 
 		array(
-            'label'      => __( 'Developer Link', 'mytheme' ), 
+            'label'      => __( 'Developer Link', 'abnipes-theme-kit' ), 
             'type'    	 => 'url', 
             'section'    	 => 'dev-section', 
             'settings'    	 => 'dev-link-setting', 

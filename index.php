@@ -16,6 +16,25 @@
  */
 
 
+
+// register javascript and css on initialization
+function abnipes_woo_register_script() {
+
+    wp_register_style( 'ab-theme-kit-css', plugins_url('/assets/css/style.css', __FILE__), false, '1.0.0', 'all');
+}
+
+add_action('init', 'abnipes_woo_register_script');
+
+
+// use the registered javascript and css above
+function abnipes_woo_enqueue_style(){
+    wp_enqueue_style('ab-theme-kit-css');
+}
+
+add_action('wp_enqueue_scripts', 'abnipes_woo_enqueue_style');
+
+
+
 // Play with WordPress Settings API.
 
 
@@ -156,5 +175,59 @@ add_action('wp_footer', 'customizer_developer_info', 15);
 
 
 
+// 
 
+function abnipes_user_contact_method( $methods ) {
+
+    $methods['facebook'] = __( Facebook, 'abnipes-theme-kit' );
+    $methods['twitter'] = __( Twitter, 'abnipes-theme-kit' );
+    $methods['linkedin'] = __( Linkedin, 'abnipes-theme-kit' );
+
+    return $methods;
+
+}
+
+add_filter( 'user_contactmethods', 'abnipes_user_contact_method' );
+
+
+function abnipes_author_bio( $content ) {
+    global $post;
+
+    $author = get_user_by( 'id', $post->post_author );
+
+    $author_bio = get_user_meta( $author->ID, 'description', true );
+    $facebook = get_user_meta( $author->ID, 'facebook', true );
+    $twitter = get_user_meta( $author->ID, 'twitter', true );
+    $linkedin = get_user_meta( $author->ID, 'linkedin', true );
+
+    ob_start();
+    ?>
+
+    <div class="abnipes-bio-wrap">
+        <div class="avatar-wrap">
+            <?php echo get_avatar( $author->ID, 64 ) ?>
+        </div>
+
+        <div class="abnipes-bio-content">
+            <div class="author-name">
+                <?php echo $author->display_name; ?>
+            </div>
+            <div class="bio">
+                <?php echo wpautop( wp_kses_post( $author_bio ) ); ?>
+            </div>
+            <ul class="author-social">
+                <li><a href="<?php echo esc_url( $facebook ); ?>"><!-- <i class="fa fa-facebook"></i> --> F</a></li>
+                <li><a href="<?php echo esc_url( $twitter ); ?>"><!-- <i class="fa fa-twitter"></i> --> T</a></li>
+                <li><a href="<?php echo esc_url( $linkedin ); ?>"><!-- <i class="fa fa-linkedin"></i> --> L</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <?php
+    $bio_content = ob_get_clean();
+
+    return $content . $bio_content;
+}
+
+add_filter( 'the_content', 'abnipes_author_bio' );
 

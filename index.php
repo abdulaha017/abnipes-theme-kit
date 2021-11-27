@@ -18,20 +18,20 @@
 
 
 // register javascript and css on initialization
-function abnipes_woo_register_script() {
+function abnipes_theme_kit_register_script() {
 
     wp_register_style( 'ab-theme-kit-css', plugins_url('/assets/css/style.css', __FILE__), false, '1.0.0', 'all');
 }
 
-add_action('init', 'abnipes_woo_register_script');
+add_action('init', 'abnipes_theme_kit_register_script');
 
 
 // use the registered javascript and css above
-function abnipes_woo_enqueue_style(){
+function abnipes_theme_kit_enqueue_style(){
     wp_enqueue_style('ab-theme-kit-css');
 }
 
-add_action('wp_enqueue_scripts', 'abnipes_woo_enqueue_style');
+add_action('wp_enqueue_scripts', 'abnipes_theme_kit_enqueue_style');
 
 
 

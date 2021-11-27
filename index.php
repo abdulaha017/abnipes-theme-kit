@@ -123,7 +123,7 @@ function abnipes_customize_register( $abnipes_customize ) {
 			'default'    => '', 
 			'type'       => 'theme_mod', 
 			'capability' => 'edit_theme_options', 
-			'transport'  => 'postMessage', 
+			'transport'  => 'refresh', 
 		) 
 	); 
  
@@ -145,7 +145,7 @@ function abnipes_customize_register( $abnipes_customize ) {
 			'default'    => '', 
 			'type'       => 'theme_mod', 
 			'capability' => 'edit_theme_options', 
-			'transport'  => 'postMessage', 
+			'transport'  => 'refresh', 
 		) 
 	); 
  
@@ -164,11 +164,11 @@ function abnipes_customize_register( $abnipes_customize ) {
 // Output of WP Customization Value
 
 function customizer_developer_info() {
-	echo get_theme_mod("dev-name-setting");
-	?>
-	<br/>
-	<?php
-	echo get_theme_mod("dev-link-setting");
+    echo esc_attr( get_theme_mod( 'dev-name-setting' ) );
+    ?>
+    <br/>
+    <?php
+    echo esc_url( get_theme_mod( 'dev-link-setting' ) );
 }
 
 add_action('wp_footer', 'customizer_developer_info', 15);
